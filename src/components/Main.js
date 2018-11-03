@@ -3,10 +3,17 @@ import AddPostForm from './AddPostForm'
 import Post from './Post'
 import FilterPosts from './FilterPosts'
 import { Container, Row, Col, Button } from 'reactstrap'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { fetchPosts } from '../actions/posts'
 
 class Main extends Component {
   state = {
     isFormOpen: false,
+  }
+
+  componentDidMount() {
+    this.props.fetchPosts();
   }
 
   togglePostForm = () => {
@@ -45,4 +52,6 @@ class Main extends Component {
   }
 }
 
-export default Main
+const mapDispatchToProps = dispatch => bindActionCreators({ fetchPosts }, dispatch);
+
+export default connect(null, mapDispatchToProps)(Main);
