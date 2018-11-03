@@ -5,6 +5,14 @@ import FilterPosts from './FilterPosts'
 import { Container, Row, Col, Button } from 'reactstrap'
 
 class Main extends Component {
+  state = {
+    isFormOpen: false,
+  }
+
+  togglePostForm = () => {
+    this.setState(prevState => ({ isFormOpen: !prevState.isFormOpen }));
+  }
+
   render() {
     return (
       <Container className="mt-4">
@@ -13,12 +21,17 @@ class Main extends Component {
             <FilterPosts />
           </Col>
           <Col sm="2">
-            <Button color="secondary">Add Post</Button>
+            <Button
+              color="secondary"
+              onClick={this.togglePostForm}
+            >
+              Add Post
+            </Button>
           </Col>
         </Row>
         <Row className="mt-4">
           <Col sm={{size: 11, offset: 1}}>
-            <AddPostForm />
+            { this.state.isFormOpen && <AddPostForm /> }
           </Col>
         </Row>
         <Row>
