@@ -35,18 +35,18 @@ const Post = props => {
             <CardText>
               Post Body
             </CardText>
-              <hr />
-              a few seconds ago | <FaComment /> 2 Comments
-              <Form inline>
-                <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                  <Input type="text" name="comment" id="comment-field" placeholder="Enter a comment here" />
-                </FormGroup>
-                <Button>Submit</Button>
-              </Form>
-              <ul className="mt-2">
-                <li>Comment One</li>
-                <li>Comment Two</li>
-              </ul>
+            <hr />
+            a few seconds ago | <FaComment /> 2 Comments
+            <Form inline>
+              <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                <Input type="text" name="comment" id="comment-field" placeholder="Enter a comment here" />
+              </FormGroup>
+              <Button>Submit</Button>
+            </Form>
+            <ul className="mt-2">
+              <li>Comment One</li>
+              <li>Comment Two</li>
+            </ul>
           </CardBody>
         </Card>
       </Col>
