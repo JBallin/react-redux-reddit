@@ -27,7 +27,7 @@ class AddPostForm extends Component {
         <Col sm="10">
           <Form onSubmit={this.handleSubmit}>
             <FormGroup>
-              <Label for="title-field">Title</Label>
+              <Label for="title-field">Title *</Label>
               <Input
                 type="text"
                 name="title"
@@ -38,7 +38,7 @@ class AddPostForm extends Component {
               />
             </FormGroup>
             <FormGroup>
-              <Label for="body-field">Body</Label>
+              <Label for="body-field">Body *</Label>
               <Input
                 type="text"
                 name="body"
@@ -49,7 +49,7 @@ class AddPostForm extends Component {
               />
             </FormGroup>
             <FormGroup>
-              <Label for="author-field">Author</Label>
+              <Label for="author-field">Author *</Label>
               <Input
                 type="text"
                 name="author"
