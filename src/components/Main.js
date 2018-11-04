@@ -43,8 +43,7 @@ class Main extends Component {
         </Row>
         <Row>
           <Col className="pr-0" sm={{size: 9, offset: 1}}>
-            {/* Below is the Post component for each post. It is up to you how you would like to iterate over them. */}
-            <Post />
+            { this.props.posts.map(post => <Post post={post} key={post.id} />) }
           </Col>
         </Row>
       </Container>
@@ -52,6 +51,10 @@ class Main extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  posts: state.posts
+});
+
 const mapDispatchToProps = dispatch => bindActionCreators({ fetchPosts }, dispatch);
 
-export default connect(null, mapDispatchToProps)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
