@@ -26,6 +26,7 @@ import { upVote, downVote } from '../actions/posts'
 class Post extends React.Component {
   state = {
     comment: '',
+    displayComments: false,
   }
 
   handleSubmit = e => {
@@ -37,11 +38,20 @@ class Post extends React.Component {
     this.setState({ comment: '' });
   }
 
+  toggleComments = e => {
+    e.preventDefault();
+    this.setState({ displayComments: !this.state.displayComments });
+  }
+
   render() {
     const { post, comments } = this.props;
     const { id, author, content, title, createdAt, img_url, votes } = post;
     const commentsList = comments.map(c => <li key={c.id}>{c.content}</li>);
-    const commentsCounter = comments.length === 1 ? '1 Comment' : `${comments.length} Comments`;
+    let commentsCounter = !comments.length ? '0 Comments' : (
+      <a href="" onClick={this.toggleComments}>
+        { comments.length === 1 ? '1 Comment' : `${comments.length} Comments` }
+      </a>
+    );
     const upArrow = (
         <FaArrowUp onClick={() => this.props.upVote(post.id)}/>
     );
@@ -84,7 +94,7 @@ class Post extends React.Component {
                 <Button>Submit</Button>
               </Form>
               <ul className="mt-2">
-                { commentsList }
+                { this.state.displayComments && commentsList }
               </ul>
             </CardBody>
           </Card>
