@@ -4,6 +4,8 @@ export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
 export const ADD_POST_FAILED = 'ADD_POST_FAILED';
 export const FETCH_POSTS_SUCCESS = 'FETCH_POSTS_SUCCESS';
 export const FETCH_POSTS_FAILED = 'FETCH_POSTS_FAILED';
+export const UPVOTE = 'UPVOTE';
+export const DOWNVOTE = 'DOWNVOTE';
 
 export const fetchPosts = () => dispatch => {
   fetch(`${API_URL}/posts`)
@@ -19,4 +21,16 @@ export const addPost = (post) => dispatch => {
     .then(r => r.json())
     .then(post => dispatch({ type: ADD_POST_SUCCESS, post }))
     .catch(err => dispatch({ type: ADD_POST_FAILED, err }));
+}
+
+export const upVote = (postId) => dispatch => {
+  fetch(`${API_URL}/posts/votes/increase/${postId}`)
+    .then(r => r.json())
+    .then(post => dispatch({ type: UPVOTE, post }))
+}
+
+export const downVote = (postId) => dispatch => {
+  fetch(`${API_URL}/posts/votes/decrease/${postId}`)
+  .then(r => r.json())
+  .then(post => dispatch({ type: DOWNVOTE, post }))
 }
