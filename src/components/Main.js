@@ -6,6 +6,7 @@ import { Container, Row, Col, Button } from 'reactstrap'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { fetchPosts } from '../actions/posts'
+import { fetchComments } from '../actions/comments'
 
 class Main extends Component {
   state = {
@@ -14,6 +15,7 @@ class Main extends Component {
 
   componentDidMount() {
     this.props.fetchPosts();
+    this.props.fetchComments();
   }
 
   togglePostForm = () => {
@@ -21,6 +23,21 @@ class Main extends Component {
   }
 
   render() {
+    const { comments, posts } = this.props;
+
+    const descendingVotes = (a,b) => {
+      if (a.votes > b.votes) return -1;
+      if (a.votes < b.votes) return 1;
+      return 0;
+    };
+
+    const sortedPosts = posts.sort(descendingVotes);
+
+    const postsList = sortedPosts.map(post => {
+      const postComments = comments.filter(c => c.post_id === post.id);
+      return <Post post={post} comments={postComments} key={post.id} />
+    });
+
     return (
       <Container className="mt-4">
         <Row>
@@ -43,7 +60,7 @@ class Main extends Component {
         </Row>
         <Row>
           <Col className="pr-0" sm={{size: 9, offset: 1}}>
-            { this.props.posts.map(post => <Post post={post} key={post.id} />) }
+            { postsList }
           </Col>
         </Row>
       </Container>
@@ -52,9 +69,10 @@ class Main extends Component {
 }
 
 const mapStateToProps = state => ({
-  posts: state.posts
+  posts: state.posts,
+  comments: state.comments,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ fetchPosts }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ fetchPosts, fetchComments }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
