@@ -13,6 +13,7 @@ class Main extends Component {
   state = {
     isFormOpen: false,
     loading: true,
+    filterQuery: '',
   }
 
   async componentDidMount () {
@@ -24,6 +25,10 @@ class Main extends Component {
 
   togglePostForm = () => {
     this.setState(prevState => ({ isFormOpen: !prevState.isFormOpen }));
+  }
+
+  filterTitles = (filterQuery) => {
+    this.setState({ filterQuery });
   }
 
   render() {
@@ -51,7 +56,16 @@ class Main extends Component {
       return 0;
     };
 
-    const sortedPosts = posts.sort(descendingVotes);
+    let sortedPosts = posts.sort(descendingVotes);
+
+    const { filterQuery } = this.state;
+    if (filterQuery) {
+      sortedPosts = sortedPosts.filter(post => {
+        const title = post.title.toLowerCase();
+        const filter = filterQuery.toLowerCase();
+        return title.includes(filter);
+      });
+    }
 
     const postsList = sortedPosts.map(post => {
       const postComments = comments.filter(c => c.post_id === post.id);
@@ -62,7 +76,10 @@ class Main extends Component {
       <Container className="mt-4">
         <Row>
           <Col sm={{size: 8, offset: 1}}>
-            <FilterPosts />
+            <FilterPosts
+              filterTitles={this.filterTitles}
+              filterQuery={this.state.filterQuery}
+            />
           </Col>
           <Col sm="2">
             <Button
