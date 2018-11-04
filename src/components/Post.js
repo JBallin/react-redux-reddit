@@ -22,6 +22,7 @@ import Moment from 'react-moment'
 const Post = ({ post, comments }) => {
   const { id, author, content, title, createdAt, img_url, votes } = post;
   const commentsList = comments.map(c => <li>{c.content}</li>);
+  const commentsCounter = comments.length === 1 ? '1 Comment' : `${comments.length} Comments`;
   return (
     <Row className="mt-3">
       <Col>
@@ -39,7 +40,7 @@ const Post = ({ post, comments }) => {
               { content }
             </CardText>
             <hr />
-            <Moment fromNow>{createdAt}</Moment> | <FaComment /> 2 Comments
+            <Moment fromNow>{createdAt}</Moment> | <FaComment /> { commentsCounter }
             <Form inline>
               <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
                 <Input type="text" name="comment" id="comment-field" placeholder="Enter a comment here" />
