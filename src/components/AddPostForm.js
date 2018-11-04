@@ -13,9 +13,13 @@ class AddPostForm extends Component {
   }
 
   handleSubmit = e => {
+    const UNSPLASH_API_URL = 'https://source.unsplash.com/random/800x400';
     e.preventDefault();
-    this.props.addPost(this.state);
+    let { img_url } = this.state;
+    if (!img_url) img_url = UNSPLASH_API_URL;
+    this.props.addPost({ ...this.state, img_url });
   }
+
   render() {
     return (
       <Row>
