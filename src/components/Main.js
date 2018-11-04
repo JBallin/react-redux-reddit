@@ -25,6 +25,14 @@ class Main extends Component {
   render() {
     const { comments, posts } = this.props;
 
+    if (posts instanceof Error || comments instanceof Error) {
+      return (
+        <Container className="mt-4">
+          <h2>{ 'Error fetching API' }</h2>
+        </Container>
+      );
+    }
+
     const descendingVotes = (a,b) => {
       if (a.votes > b.votes) return -1;
       if (a.votes < b.votes) return 1;
