@@ -41,10 +41,7 @@ class Post extends React.Component {
     const { id, author, content, title, createdAt, img_url, votes } = post;
     const commentsList = comments.map(c => <li key={c.id}>{c.content}</li>);
     const commentsCounter = comments.length === 1 ? '1 Comment' : `${comments.length} Comments`;
-    const handleSubmit = e => {
-      e.preventDefault();
-      addComment()
-    }
+
     return (
       <Row className="mt-3">
         <Col>
