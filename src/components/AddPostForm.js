@@ -1,5 +1,8 @@
-import React, {Component} from 'react'
-import { Row, Col, Form, FormGroup, Label, Input, Button } from 'reactstrap'
+import React, {Component} from 'react';
+import { Row, Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import { addPost } from '../actions/posts';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 class AddPostForm extends Component {
   state = {
@@ -9,11 +12,15 @@ class AddPostForm extends Component {
     img_url: '',
   }
 
+  handleSubmit = e => {
+    e.preventDefault();
+    this.props.addPost(this.state);
+  }
   render() {
     return (
       <Row>
         <Col sm="10">
-          <Form>
+          <Form onSubmit={this.handleSubmit}>
             <FormGroup>
               <Label for="title-field">Title</Label>
               <Input
@@ -62,4 +69,6 @@ class AddPostForm extends Component {
   }
 }
 
-export default AddPostForm
+const mapDispatchToProps = dispatch => bindActionCreators({ addPost }, dispatch);
+
+export default connect(null, mapDispatchToProps)(AddPostForm);
