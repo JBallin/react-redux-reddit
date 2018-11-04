@@ -18,6 +18,7 @@ class AddPostForm extends Component {
     let { img_url } = this.state;
     if (!img_url) img_url = UNSPLASH_API_URL;
     this.props.addPost({ ...this.state, img_url });
+    this.props.close();
   }
 
   render() {

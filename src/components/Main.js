@@ -55,7 +55,7 @@ class Main extends Component {
         </Row>
         <Row className="mt-4">
           <Col sm={{size: 11, offset: 1}}>
-            { this.state.isFormOpen && <AddPostForm /> }
+            { this.state.isFormOpen && <AddPostForm close={ this.togglePostForm } /> }
           </Col>
         </Row>
         <Row>
