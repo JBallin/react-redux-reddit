@@ -1,12 +1,9 @@
 const API_URL = process.env.REACT_APP_API_URL;
 
-export const ADD_COMMENT = 'ADD_COMMENT';
 export const FETCH_COMMENTS_SUCCESS = 'FETCH_COMMENTS_SUCCESS';
 export const FETCH_COMMENTS_FAILED = 'FETCH_COMMENTS_FAILED';
-
-export const addComment = (comment) => dispatch => {
-  dispatch({ type: ADD_COMMENT, comment });
-}
+export const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS';
+export const ADD_COMMENT_FAILED = 'ADD_COMMENT_FAILED';
 
 export const fetchComments = () => dispatch => {
   fetch(`${API_URL}/comments`)
@@ -19,4 +16,19 @@ export const fetchComments = () => dispatch => {
       type: FETCH_COMMENTS_FAILED,
       err,
     }));
+}
+
+export const addComment = (comment) => dispatch => {
+  const body = JSON.stringify(comment);
+  const headers = { 'Content-Type': 'application/json' };
+  fetch(`${API_URL}/comments`, { method: 'POST', body, headers })
+    .then(r => r.json())
+    .then(comment => {
+      console.log('NEW COMMENT', comment);
+      dispatch({ type: ADD_COMMENT_SUCCESS, comment });
+    })
+    .catch(err => {
+      console.log(err);
+      dispatch({ type: ADD_COMMENT_FAILED, comment });
+    })
 }
