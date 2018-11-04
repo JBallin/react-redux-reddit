@@ -33,6 +33,7 @@ class AddPostForm extends Component {
                 id="title-field"
                 value={ this.state.title }
                 onChange={ e => this.setState({ title: e.target.value }) }
+                required
               />
             </FormGroup>
             <FormGroup>
@@ -43,6 +44,7 @@ class AddPostForm extends Component {
                 id="body-field"
                 value={ this.state.content }
                 onChange={ e => this.setState({ content: e.target.value }) }
+                required
               />
             </FormGroup>
             <FormGroup>
@@ -53,12 +55,13 @@ class AddPostForm extends Component {
                 id="author-field"
                 value={ this.state.author }
                 onChange={ e => this.setState({ author: e.target.value }) }
+                required
               />
             </FormGroup>
             <FormGroup>
               <Label for="image-field">Image URL</Label>
               <Input
-                type="text"
+                type="url"
                 name="image"
                 id="image-field"
                 value={ this.state.img_url }
