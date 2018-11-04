@@ -21,6 +21,7 @@ import Moment from 'react-moment'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { addComment } from '../actions/comments'
+import { upVote, downVote } from '../actions/posts'
 
 class Post extends React.Component {
   state = {
@@ -41,6 +42,12 @@ class Post extends React.Component {
     const { id, author, content, title, createdAt, img_url, votes } = post;
     const commentsList = comments.map(c => <li key={c.id}>{c.content}</li>);
     const commentsCounter = comments.length === 1 ? '1 Comment' : `${comments.length} Comments`;
+    const upArrow = (
+        <FaArrowUp onClick={() => this.props.upVote(post.id)}/>
+    );
+    const downArrow = (
+        <FaArrowDown onClick={() => this.props.downVote(post.id)}/>
+    );
 
     return (
       <Row className="mt-3">
@@ -53,7 +60,9 @@ class Post extends React.Component {
               alt="Card image cap"
             />
             <CardBody>
-              <CardTitle>{ title } | <FaArrowUp /> {votes} <FaArrowDown /></CardTitle>
+              <CardTitle>
+                { title } | {upArrow} {votes} {downArrow}
+              </CardTitle>
               <CardSubtitle>{ author }</CardSubtitle>
               <CardText>
                 { content }
@@ -85,6 +94,6 @@ class Post extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({ addComment }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ addComment, upVote, downVote }, dispatch);
 
 export default connect(null, mapDispatchToProps)(Post);
