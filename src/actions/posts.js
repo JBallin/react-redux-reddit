@@ -18,5 +18,5 @@ export const addPost = (post) => dispatch => {
   fetch(`${API_URL}/posts`, { method: 'POST', body, headers })
     .then(r => r.json())
     .then(post => dispatch({ type: ADD_POST_SUCCESS, post }))
-    .catch(err => dispatch({ type: ADD_POST_FAILED, post }));
+    .catch(err => dispatch({ type: ADD_POST_FAILED, err }));
 }

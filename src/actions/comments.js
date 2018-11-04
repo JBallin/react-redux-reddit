@@ -18,5 +18,5 @@ export const addComment = (comment) => dispatch => {
   fetch(`${API_URL}/comments`, { method: 'POST', body, headers })
     .then(r => r.json())
     .then(comment => dispatch({ type: ADD_COMMENT_SUCCESS, comment }))
-    .catch(err => dispatch({ type: ADD_COMMENT_FAILED, comment }));
+    .catch(err => dispatch({ type: ADD_COMMENT_FAILED, err }));
 }
