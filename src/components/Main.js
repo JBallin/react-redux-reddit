@@ -7,15 +7,19 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { fetchPosts } from '../actions/posts'
 import { fetchComments } from '../actions/comments'
+import Spinner from './Spinner'
 
 class Main extends Component {
   state = {
     isFormOpen: false,
+    loading: true,
   }
 
-  componentDidMount() {
-    this.props.fetchPosts();
-    this.props.fetchComments();
+  async componentDidMount () {
+    const delay = 700;
+    const delayedPromise = new Promise(resolve => setTimeout(resolve, delay));
+    await Promise.all([this.props.fetchPosts(), this.props.fetchComments(), delayedPromise]);
+    this.setState({ loading: false });
   }
 
   togglePostForm = () => {
@@ -24,6 +28,14 @@ class Main extends Component {
 
   render() {
     const { comments, posts } = this.props;
+
+    if (this.state.loading) {
+      return (
+        <Container className="mt-4">
+          <Spinner />
+        </Container>
+      );
+    }
 
     if (posts instanceof Error || comments instanceof Error) {
       return (
