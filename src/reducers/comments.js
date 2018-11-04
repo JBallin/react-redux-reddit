@@ -12,11 +12,11 @@ export default (state = initialState, action) => {
     case FETCH_COMMENTS_SUCCESS:
       return [...action.comments];
     case FETCH_COMMENTS_FAILED:
-      return action.comments;
+      return action.err;
     case ADD_COMMENT_SUCCESS:
       return [...state, action.comment];
     case ADD_COMMENT_FAILED:
-      return action.comment;
+      return action.err;
     default:
       return state;
   }

@@ -12,11 +12,11 @@ export default (state = initialState, action) => {
     case FETCH_POSTS_SUCCESS:
       return [...action.posts];
     case FETCH_POSTS_FAILED:
-      return action.posts;
+      return action.err;
     case ADD_POST_SUCCESS:
       return [...state, action.post]
     case ADD_POST_FAILED:
-      return action.post;
+      return action.err;
     default:
       return state;
   }
