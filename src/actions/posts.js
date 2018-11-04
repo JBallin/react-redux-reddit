@@ -8,14 +8,8 @@ export const FETCH_POSTS_FAILED = 'FETCH_POSTS_FAILED';
 export const fetchPosts = () => dispatch => {
   fetch(`${API_URL}/posts`)
     .then(r => r.json())
-    .then(posts => dispatch({
-      type: FETCH_POSTS_SUCCESS,
-      posts,
-    }))
-    .catch(err => dispatch({
-      type: FETCH_POSTS_FAILED,
-      err,
-    }));
+    .then(posts => dispatch({ type: FETCH_POSTS_SUCCESS, posts }))
+    .catch(err => dispatch({ type: FETCH_POSTS_FAILED, err }));
 }
 
 export const addPost = (post) => dispatch => {
@@ -23,10 +17,6 @@ export const addPost = (post) => dispatch => {
   const headers = { 'Content-Type': 'application/json' };
   fetch(`${API_URL}/posts`, { method: 'POST', body, headers })
     .then(r => r.json())
-    .then(post => {
-      dispatch({ type: ADD_POST_SUCCESS, post });
-    })
-    .catch(err => {
-      dispatch({ type: ADD_POST_FAILED, post });
-    })
+    .then(post => dispatch({ type: ADD_POST_SUCCESS, post }))
+    .catch(err => dispatch({ type: ADD_POST_FAILED, post }));
 }
