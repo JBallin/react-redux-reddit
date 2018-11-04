@@ -46,7 +46,7 @@ class Post extends React.Component {
         <FaArrowUp onClick={() => this.props.upVote(post.id)}/>
     );
     const downArrow = (
-        <FaArrowDown onClick={() => this.props.downVote(post.id)}/>
+        <FaArrowDown style={ post.votes ? {color: 'gray'} : {} } onClick={() => post.votes && this.props.downVote(post.id)}/>
     );
 
     return (
