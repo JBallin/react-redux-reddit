@@ -21,6 +21,7 @@ import Moment from 'react-moment'
 
 const Post = ({ post, comments }) => {
   const { id, author, content, title, createdAt, img_url, votes } = post;
+  const commentsList = comments.map(c => <li>{c.content}</li>);
   return (
     <Row className="mt-3">
       <Col>
@@ -46,8 +47,7 @@ const Post = ({ post, comments }) => {
               <Button>Submit</Button>
             </Form>
             <ul className="mt-2">
-              <li>Comment One</li>
-              <li>Comment Two</li>
+              { commentsList }
             </ul>
           </CardBody>
         </Card>
