@@ -22,6 +22,8 @@ class AddPostForm extends Component {
   }
 
   render() {
+    const isFormFilled = this.state.title && this.state.content && this.state.author;
+
     return (
       <Row>
         <Col sm="10">
@@ -69,7 +71,7 @@ class AddPostForm extends Component {
                 onChange={ e => this.setState({ img_url: e.target.value }) }
               />
             </FormGroup>
-            <Button type="submit">Submit</Button>
+            <Button disabled={!isFormFilled} type="submit">Create Post</Button>
           </Form>
         </Col>
       </Row>
