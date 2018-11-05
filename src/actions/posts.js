@@ -8,7 +8,7 @@ export const UPVOTE = 'UPVOTE';
 export const DOWNVOTE = 'DOWNVOTE';
 
 export const fetchPosts = () => dispatch => {
-  fetch(`${API_URL}/posts`)
+  return fetch(`${API_URL}/posts`)
     .then(r => r.json())
     .then(posts => dispatch({ type: FETCH_POSTS_SUCCESS, posts }))
     .catch(err => dispatch({ type: FETCH_POSTS_FAILED, err }));
@@ -17,20 +17,20 @@ export const fetchPosts = () => dispatch => {
 export const addPost = (post) => dispatch => {
   const body = JSON.stringify(post);
   const headers = { 'Content-Type': 'application/json' };
-  fetch(`${API_URL}/posts`, { method: 'POST', body, headers })
+  return fetch(`${API_URL}/posts`, { method: 'POST', body, headers })
     .then(r => r.json())
     .then(post => dispatch({ type: ADD_POST_SUCCESS, post }))
     .catch(err => dispatch({ type: ADD_POST_FAILED, err }));
 }
 
 export const upVote = (postId) => dispatch => {
-  fetch(`${API_URL}/posts/votes/increase/${postId}`)
+  return fetch(`${API_URL}/posts/votes/increase/${postId}`)
     .then(r => r.json())
     .then(post => dispatch({ type: UPVOTE, post }))
 }
 
 export const downVote = (postId) => dispatch => {
-  fetch(`${API_URL}/posts/votes/decrease/${postId}`)
-  .then(r => r.json())
-  .then(post => dispatch({ type: DOWNVOTE, post }))
+  return fetch(`${API_URL}/posts/votes/decrease/${postId}`)
+    .then(r => r.json())
+    .then(post => dispatch({ type: DOWNVOTE, post }))
 }
