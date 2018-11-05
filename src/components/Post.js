@@ -100,7 +100,7 @@ class Post extends React.Component {
               <hr />
               { timeSincePost } | <FaComment /> { commentsCounter }
               { newCommentForm }
-              <ul className="mt-2">
+              <ul className="mt-4" style={{ color: 'darkblue' }}>
                 { this.state.displayComments && commentsList }
               </ul>
             </CardBody>
