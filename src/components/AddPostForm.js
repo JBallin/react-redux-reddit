@@ -21,6 +21,15 @@ class AddPostForm extends Component {
     this.props.close();
   }
 
+  toggleShadow = e => {
+    e.target.style.boxShadow = e.target.value ? '0 0 5px green' : '0 0 5px red';
+  }
+
+  handleChange = e => {
+    if (e.target.name !== 'img_url') this.toggleShadow(e);
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
   render() {
     const isFormFilled = this.state.title && this.state.content && this.state.author;
     const redAsterisk = <span style={{color: 'red'}}>*</span>;
@@ -33,7 +42,8 @@ class AddPostForm extends Component {
           name="title"
           id="title-field"
           value={ this.state.title }
-          onChange={ e => this.setState({ title: e.target.value }) }
+          onChange={ this.handleChange }
+          onFocus={ this.toggleShadow }
           required
         />
       </FormGroup>
@@ -44,10 +54,11 @@ class AddPostForm extends Component {
         <Label for="body-field">Body { redAsterisk }</Label>
         <Input
           type="text"
-          name="body"
+          name="content"
           id="body-field"
           value={ this.state.content }
-          onChange={ e => this.setState({ content: e.target.value }) }
+          onFocus={ this.toggleShadow }
+          onChange={ this.handleChange }
           required
         />
       </FormGroup>
@@ -61,7 +72,8 @@ class AddPostForm extends Component {
           name="author"
           id="author-field"
           value={ this.state.author }
-          onChange={ e => this.setState({ author: e.target.value }) }
+          onFocus={ this.toggleShadow }
+          onChange={ this.handleChange }
           required
         />
       </FormGroup>
@@ -72,10 +84,10 @@ class AddPostForm extends Component {
         <Label for="image-field">Image URL</Label>
         <Input
           type="url"
-          name="image"
+          name="img_url"
           id="image-field"
           value={ this.state.img_url }
-          onChange={ e => this.setState({ img_url: e.target.value }) }
+          onChange={ this.handleChange }
         />
       </FormGroup>
     );
