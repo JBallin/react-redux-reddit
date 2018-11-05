@@ -82,7 +82,7 @@ class AddPostForm extends Component {
 
     const createPostButton = (
       <Button disabled={!isFormFilled} type="submit">Create Post</Button>
-    )
+    );
 
     return (
       <Row>
