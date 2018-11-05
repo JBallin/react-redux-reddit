@@ -35,7 +35,7 @@ class Post extends React.Component {
       content: this.state.comment,
       post_id: this.props.post.id,
     });
-    this.setState({ comment: '' });
+    this.setState({ comment: '', displayComments: true });
   }
 
   toggleComments = e => {
