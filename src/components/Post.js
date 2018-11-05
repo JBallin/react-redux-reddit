@@ -59,6 +59,27 @@ class Post extends React.Component {
         <FaArrowDown style={ !post.votes ? {color: 'gray'} : {} } onClick={() => post.votes && this.props.downVote(post.id)}/>
     );
 
+    const newCommentForm = (
+      <Form inline onSubmit={ this.handleSubmit }>
+        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+          <Input
+            type="text"
+            name="comment"
+            id="comment-field"
+            placeholder="Enter a comment here"
+            required
+            value={ this.state.comment }
+            onChange={ e => this.setState({ comment: e.target.value }) }
+          />
+        </FormGroup>
+        <Button>Submit</Button>
+      </Form>
+    );
+
+    const timeSincePost = (
+      <Moment fromNow>{createdAt}</Moment>
+    );
+
     return (
       <Row className="mt-3">
         <Col>
@@ -78,21 +99,8 @@ class Post extends React.Component {
                 { content }
               </CardText>
               <hr />
-              <Moment fromNow>{createdAt}</Moment> | <FaComment /> { commentsCounter }
-              <Form inline onSubmit={ this.handleSubmit }>
-                <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                  <Input
-                    type="text"
-                    name="comment"
-                    id="comment-field"
-                    placeholder="Enter a comment here"
-                    required
-                    value={ this.state.comment }
-                    onChange={ e => this.setState({ comment: e.target.value }) }
-                  />
-                </FormGroup>
-                <Button>Submit</Button>
-              </Form>
+              { timeSincePost } | <FaComment /> { commentsCounter }
+              { newCommentForm }
               <ul className="mt-2">
                 { this.state.displayComments && commentsList }
               </ul>
