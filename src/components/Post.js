@@ -11,7 +11,6 @@ import {
   Button,
   Form,
   FormGroup,
-  Label,
   Input
 } from 'reactstrap'
 import FaArrowUp from 'react-icons/lib/fa/arrow-up'
@@ -45,7 +44,7 @@ class Post extends React.Component {
 
   render() {
     const { post, comments } = this.props;
-    const { id, author, content, title, createdAt, img_url, votes } = post;
+    const { author, content, title, createdAt, img_url, votes } = post;
     const commentsList = comments.map(c => <li key={c.id}>{c.content}</li>);
     let commentsCounter = !comments.length ? '0 Comments' : (
       <a href="" onClick={this.toggleComments}>
