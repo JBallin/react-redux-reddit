@@ -12,11 +12,25 @@ class AddPostForm extends Component {
     img_url: '',
   }
 
-  handleSubmit = e => {
-    const UNSPLASH_API_URL = 'https://source.unsplash.com/random/800x400';
+  getRandomImage = () => {
+    const API_URL = process.env.REACT_APP_API_URL;
+    const [width, height] = [1200, 800];
+    const IMAGE_API_URL = `${API_URL}/random-image?w=${width}&h=${height}`
+    return fetch(IMAGE_API_URL).then(r => r.json());
+  }
+
+  handleSubmit = async e => {
     e.preventDefault();
     let { img_url } = this.state;
-    if (!img_url) img_url = UNSPLASH_API_URL;
+    if (!img_url) {
+      const image = await this.getRandomImage();
+      if (image.error) {
+        console.error(image.error);
+        return;
+      } else {
+        img_url = image.img_url;
+      }
+    }
     this.props.addPost({ ...this.state, img_url });
     this.props.close();
   }
