@@ -23,10 +23,11 @@ class AddPostForm extends Component {
 
   render() {
     const isFormFilled = this.state.title && this.state.content && this.state.author;
+    const redAsterisk = <span style={{color: 'red'}}>*</span>;
 
     const titleField = (
       <FormGroup>
-        <Label for="title-field">Title *</Label>
+        <Label for="title-field">Title { redAsterisk }</Label>
         <Input
           type="text"
           name="title"
@@ -40,7 +41,7 @@ class AddPostForm extends Component {
 
     const bodyField = (
       <FormGroup>
-        <Label for="body-field">Body *</Label>
+        <Label for="body-field">Body { redAsterisk }</Label>
         <Input
           type="text"
           name="body"
@@ -54,7 +55,7 @@ class AddPostForm extends Component {
 
     const authorField = (
       <FormGroup>
-        <Label for="author-field">Author *</Label>
+        <Label for="author-field">Author { redAsterisk }</Label>
         <Input
           type="text"
           name="author"
