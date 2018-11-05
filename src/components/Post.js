@@ -72,7 +72,7 @@ class Post extends React.Component {
             onChange={ e => this.setState({ comment: e.target.value }) }
           />
         </FormGroup>
-        <Button>Submit</Button>
+        <Button disabled={!this.state.comment}>Submit</Button>
       </Form>
     );
 
