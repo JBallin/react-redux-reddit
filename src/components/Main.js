@@ -12,15 +12,17 @@ import Spinner from './Spinner'
 class Main extends Component {
   state = {
     isFormOpen: false,
-    loading: true,
+    isFetching: true,
+    isLoadingImages: true,
     filterQuery: '',
+    loadedImages: 0,
   }
 
   async componentDidMount () {
     const delay = 700;
     const delayedPromise = new Promise(resolve => setTimeout(resolve, delay));
     await Promise.all([this.props.fetchPosts(), this.props.fetchComments(), delayedPromise]);
-    this.setState({ loading: false });
+    this.setState({ isFetching: false });
   }
 
   togglePostForm = () => {
@@ -31,16 +33,19 @@ class Main extends Component {
     this.setState({ filterQuery });
   }
 
+  logLoadedImage = () => {
+    this.setState(prevState => {
+      const newState = { loadedImages: prevState.loadedImages + 1 };
+      if (prevState.loadedImages === this.props.posts.length - 1) {
+        newState.isLoadingImages = false;
+      }
+      return newState;
+    });
+  }
+
   render() {
     const { comments, posts } = this.props;
-
-    if (this.state.loading) {
-      return (
-        <Container className="mt-4">
-          <Spinner />
-        </Container>
-      );
-    }
+    const { filterQuery, isLoadingImages, isFetching } = this.state;
 
     if (posts instanceof Error || comments instanceof Error) {
       return (
@@ -58,7 +63,6 @@ class Main extends Component {
 
     let sortedPosts = posts.sort(descendingVotes);
 
-    const { filterQuery } = this.state;
     if (filterQuery) {
       sortedPosts = sortedPosts.filter(post => {
         const title = post.title.toLowerCase();
@@ -69,11 +73,18 @@ class Main extends Component {
 
     const postsList = sortedPosts.map(post => {
       const postComments = comments.filter(c => c.post_id === post.id);
-      return <Post post={post} comments={postComments} key={post.id} />
+      return (
+        <Post
+          post={post}
+          comments={postComments}
+          key={post.id}
+          logLoadedImage={this.logLoadedImage}
+        />
+      )
     });
 
-    return (
-      <Container className="mt-4">
+    const postsDisplay = (
+      <div style={ isLoadingImages ? { display: 'none' } : {} }>
         <Row>
           <Col sm={{size: 8, offset: 1}}>
             <FilterPosts
@@ -100,6 +111,15 @@ class Main extends Component {
             { postsList }
           </Col>
         </Row>
+      </div>
+    );
+
+    return (
+      <Container className="mt-4">
+        <div style={ (!isFetching && !isLoadingImages) ? { display: 'none' } : {} }>
+          <Spinner />
+        </div>
+        { !isFetching && postsDisplay }
       </Container>
     )
   }

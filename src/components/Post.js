@@ -88,6 +88,7 @@ class Post extends React.Component {
               width="100%"
               src={img_url}
               alt="Card image cap"
+              onLoad={this.props.logLoadedImage}
             />
             <CardBody>
               <CardTitle>
