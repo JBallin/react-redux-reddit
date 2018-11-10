@@ -89,6 +89,7 @@ class Post extends React.Component {
               src={img_url}
               alt="Card image cap"
               onLoad={this.props.logLoadedImage}
+              onError={this.props.logLoadedImage}
             />
             <CardBody>
               <CardTitle>
