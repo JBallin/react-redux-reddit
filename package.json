@@ -10,7 +10,7 @@
     "react-icons": "^2.2.7",
     "react-moment": "^0.8.3",
     "react-redux": "^5.1.0",
-    "react-scripts": "1.1.1",
+    "react-scripts": "^2.1.1",
     "reactstrap": "^5.0.0-beta",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
@@ -21,5 +21,11 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
