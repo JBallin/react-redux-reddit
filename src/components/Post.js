@@ -47,9 +47,9 @@ class Post extends React.Component {
     const { author, content, title, createdAt, img_url, votes } = post;
     const commentsList = comments.map(c => <li key={c.id}>{c.content}</li>);
     let commentsCounter = !comments.length ? '0 Comments' : (
-      <a href="" onClick={this.toggleComments}>
+      <button id='toggleComments' onClick={this.toggleComments}>
         { comments.length === 1 ? '1 Comment' : `${comments.length} Comments` }
-      </a>
+      </button>
     );
     const upArrow = (
         <FaArrowUp onClick={() => this.props.upVote(post.id)}/>
